@@ -1,8 +1,8 @@
 # XivInTheShellMarkerGen
 
-根据FFlogs战斗日志生成[xivintheshell](https://xivintheshell.com/)的时间轴
+根据FFlogs战斗日志生成[XIV in the Shell](https://xivintheshell.com/)的时间轴
 
-需要在main.py同目录下创建config.txt配置文件
+需要在main.py（或markerGen.exe）同目录下创建config.txt配置文件
 
 ~~~
 {
