@@ -3,6 +3,7 @@ import os
 
 CONFIG_FILE = "timeline_config.json"
 
+
 class ConfigManager:
     @staticmethod
     def load_all_config():
@@ -31,7 +32,7 @@ class ConfigManager:
         """读取全局通用的设置 (min_interval, max_tracks)"""
         all_data = ConfigManager.load_all_config()
         return all_data.get("GLOBAL_SETTINGS", {
-            "min_interval": 1000,
+            "min_interval": 3000,
             "max_tracks": 20
         })
 
@@ -44,7 +45,7 @@ class ConfigManager:
             "max_tracks": int(max_tracks)
         }
         ConfigManager.save_all_config(all_data)
-        
+
     @staticmethod
     def get_zone_config(zone_id):
         all_data = ConfigManager.load_all_config()
@@ -55,16 +56,16 @@ class ConfigManager:
         """更新特定区域的技能配置 (不再保存 interval/tracks)"""
         all_data = ConfigManager.load_all_config()
         z_key = str(zone_id)
-        
+
         existing_zone_data = all_data.get(z_key, {})
         existing_skills = existing_zone_data.get('skills', {})
-        
+
         # 合并技能配置
         existing_skills.update(new_skills_data)
-        
+
         existing_zone_data['skills'] = existing_skills
         all_data[z_key] = existing_zone_data
-        
+
         ConfigManager.save_all_config(all_data)
 
     @staticmethod

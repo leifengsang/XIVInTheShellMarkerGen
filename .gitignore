@@ -2,4 +2,7 @@ config.txt
 dist/
 build/
 icon.ico
-main.spec
+*.spec
+__pycache__/
+.idea/
+timeline_config.json
