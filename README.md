@@ -11,3 +11,4 @@ FFLogs API Key获取方式：[FFLogs设置](https://cn.fflogs.com/profile)
 
 由于部分FFLogs日志可能存在缺失，Untargetable（不可选中）段生成可能存在异常，如有问题请手动调整
 
+部分战斗开怪后会存在不可选中时间（如O6S），战斗起始时间为实际可选中时间，需要在XIV in the Shell导入时额外配置**载入文件时间偏移**
