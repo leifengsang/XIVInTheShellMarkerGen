@@ -346,51 +346,50 @@ def convert_marker_list(marker_list):
 def make_track_list(info_list, min_interval, max_tracks):
     marker_list_dic = {}
     info_list.sort(key=lambda x: x.time)
-    
+
     # 定义硬性下限
-    MIN_INTERVAL_FLOOR = 1000 
+    MIN_INTERVAL_FLOOR = 1000
 
     for marker in info_list:
         current_interval = min_interval
-        
+
         while True:
             track = 0
             found_track = False
-            
+
             # 内层循环：寻找可用轨道
             while True:
                 marker_list = marker_list_dic.get(track, [])
                 if not marker_list:
                     found_track = True
-                    break # 找到了位置，执行插入
+                    break  # 找到了位置，执行插入
                 last_end_time = marker_list[-1].get_cast_end_time()
-                
+
                 # 检查是否满足当前间隔
                 if marker.time - last_end_time >= current_interval:
                     found_track = True
-                    break # 找到了位置，执行插入
-                
-                track += 1 # 没找到就开新轨道
-                
+                    break  # 找到了位置，执行插入
+
+                track += 1  # 没找到就开新轨道
+
                 if track >= max_tracks:
                     # 如果目前的间隔比 1000 大，说明还有压缩空间
                     # 减小 current_interval 重试
                     if current_interval > MIN_INTERVAL_FLOOR:
-                        break 
+                        break
                     else:
                         # 如果已经死守到 1000 了，或者更小
                         # 代码会继续执行 while True，进入 track = max_tracks
-                        pass 
+                        pass
 
             if found_track:
                 marker.track = track
                 if track not in marker_list_dic:
                     marker_list_dic[track] = []
                 marker_list_dic[track].append(marker)
-                break 
+                break
             else:
                 current_interval = max(current_interval - 100, MIN_INTERVAL_FLOOR)
-
 
     track_list = []
     sorted_tracks = sorted(marker_list_dic.keys())
@@ -401,7 +400,7 @@ def make_track_list(info_list, min_interval, max_tracks):
             "track": track,
             "markers": convert_marker_list(marker_list_dic[track])
         })
-        
+
     return track_list
 
 
@@ -471,4 +470,3 @@ def generate_final_json(cast_list, untarget_list, user_config):
     }
 
     return result_json
-
