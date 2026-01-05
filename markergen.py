@@ -355,7 +355,9 @@ def make_track_list(info_list, min_interval, max_tracks):
         while marker.time - last_end_time < min_interval:
             track += 1
             marker_list = marker_list_dic.get(track, [])
-            last_end_time = marker_list[-1].get_cast_end_time() if marker_list else 0
+            if not marker_list:
+                break
+            last_end_time = marker_list[-1].get_cast_end_time()
 
         marker.track = track
         marker_list.append(marker)
